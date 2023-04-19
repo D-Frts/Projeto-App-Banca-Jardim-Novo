@@ -9,5 +9,8 @@ public class Produto
     public decimal Preco { get; set; }
     public int Quantidade { get; set; }
     public string ImagemUrl { get; set; }
+
+    public Categoria? Categoria { get; set; }
+    public int CategoriaId { get; set; }
 }
 
