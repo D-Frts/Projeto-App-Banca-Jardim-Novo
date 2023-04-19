@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BancaJN.Api.Data;
 
-public class BancaDbContext:DbContext   
+public class BancaDbContext : DbContext
 {
     public DbSet<Cliente> Clientes { get; set; }
     public DbSet<Fornecedor> Fornecedores { get; set; }
@@ -12,7 +12,7 @@ public class BancaDbContext:DbContext
 
     public BancaDbContext(DbContextOptions<BancaDbContext> options) : base(options)
     {
-        
+
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -25,6 +25,24 @@ public class BancaDbContext:DbContext
             .HasForeignKey(fk => fk.CategoriaId)
             .OnDelete(DeleteBehavior.Restrict);
 
+        modelBuilder.Entity<Produto>()
+            .HasKey(pk => pk.Id);
+        modelBuilder.Entity<Produto>()
+            .Property(p => p.Codigo)
+            .HasColumnType("VARCHAR(50) UNIQUE")
+            .HasPrecision(50);
+        modelBuilder.Entity<Produto>()
+            .HasIndex(i => i.Nome).IsUnique();
+        modelBuilder.Entity<Produto>()
+            .Property(p => p.Nome)
+            .HasColumnType("VARCHAR(50)")
+            .HasPrecision(50)
+            .HasDefaultValue("NÃO IDENTIFICADO");
+        modelBuilder.Entity<Produto>()
+            .Property(p => p.Preco)
+            .HasColumnType("DECIMAL(10,2)")
+            .HasPrecision(2, 10)
+            .HasDefaultValue(0f);
 
     }
 }
