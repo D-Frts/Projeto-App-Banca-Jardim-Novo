@@ -1,4 +1,6 @@
-﻿namespace BancaJN.Api.Entities;
+﻿using System.Text.Json.Serialization;
+
+namespace BancaJN.Api.Entities;
 
 public class Produto
 {
@@ -10,6 +12,7 @@ public class Produto
     public int Quantidade { get; set; }
     public string ImagemUrl { get; set; }
 
+    [JsonIgnore]
     public Categoria? Categoria { get; set; }
     public int CategoriaId { get; set; }
 }
