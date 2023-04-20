@@ -2,6 +2,7 @@
 using BancaJN.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BancaJN.Api.Migrations
 {
     [DbContext(typeof(BancaDbContext))]
-    partial class BancaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230420161145_AlteracaoEntidadeProduto4")]
+    partial class AlteracaoEntidadeProduto4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.16");

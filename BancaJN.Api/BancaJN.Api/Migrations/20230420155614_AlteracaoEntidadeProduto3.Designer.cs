@@ -2,6 +2,7 @@
 using BancaJN.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BancaJN.Api.Migrations
 {
     [DbContext(typeof(BancaDbContext))]
-    partial class BancaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230420155614_AlteracaoEntidadeProduto3")]
+    partial class AlteracaoEntidadeProduto3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.16");
@@ -88,7 +90,7 @@ namespace BancaJN.Api.Migrations
 
                     b.Property<string>("ImagemUrl")
                         .HasPrecision(100)
-                        .HasColumnType("VARCHAR(100)");
+                        .HasColumnType("VARCHAR");
 
                     b.Property<string>("Nome")
                         .IsRequired()
@@ -104,9 +106,7 @@ namespace BancaJN.Api.Migrations
                         .HasDefaultValue(0m);
 
                     b.Property<int>("Quantidade")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER")
-                        .HasDefaultValue(0);
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
