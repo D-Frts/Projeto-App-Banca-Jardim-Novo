@@ -1,7 +1,4 @@
-﻿using BancaJN.Api.Entities;
-using Microsoft.EntityFrameworkCore;
-
-namespace BancaJN.Api.Data;
+﻿namespace BancaJN.Api.Data;
 
 public class BancaDbContext : DbContext
 {
