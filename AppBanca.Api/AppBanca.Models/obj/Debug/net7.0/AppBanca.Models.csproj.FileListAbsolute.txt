@@ -1,0 +1,12 @@
+C:\Users\danil\OneDrive\Documentos\Projeto App Banca Jardim Novo\AppBanca.Api\AppBanca.Models\bin\Debug\net7.0\AppBanca.Models.deps.json
+C:\Users\danil\OneDrive\Documentos\Projeto App Banca Jardim Novo\AppBanca.Api\AppBanca.Models\bin\Debug\net7.0\AppBanca.Models.dll
+C:\Users\danil\OneDrive\Documentos\Projeto App Banca Jardim Novo\AppBanca.Api\AppBanca.Models\bin\Debug\net7.0\AppBanca.Models.pdb
+C:\Users\danil\OneDrive\Documentos\Projeto App Banca Jardim Novo\AppBanca.Api\AppBanca.Models\obj\Debug\net7.0\AppBanca.Models.csproj.AssemblyReference.cache
+C:\Users\danil\OneDrive\Documentos\Projeto App Banca Jardim Novo\AppBanca.Api\AppBanca.Models\obj\Debug\net7.0\AppBanca.Models.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\danil\OneDrive\Documentos\Projeto App Banca Jardim Novo\AppBanca.Api\AppBanca.Models\obj\Debug\net7.0\AppBanca.Models.AssemblyInfoInputs.cache
+C:\Users\danil\OneDrive\Documentos\Projeto App Banca Jardim Novo\AppBanca.Api\AppBanca.Models\obj\Debug\net7.0\AppBanca.Models.AssemblyInfo.cs
+C:\Users\danil\OneDrive\Documentos\Projeto App Banca Jardim Novo\AppBanca.Api\AppBanca.Models\obj\Debug\net7.0\AppBanca.Models.csproj.CoreCompileInputs.cache
+C:\Users\danil\OneDrive\Documentos\Projeto App Banca Jardim Novo\AppBanca.Api\AppBanca.Models\obj\Debug\net7.0\AppBanca.Models.dll
+C:\Users\danil\OneDrive\Documentos\Projeto App Banca Jardim Novo\AppBanca.Api\AppBanca.Models\obj\Debug\net7.0\refint\AppBanca.Models.dll
+C:\Users\danil\OneDrive\Documentos\Projeto App Banca Jardim Novo\AppBanca.Api\AppBanca.Models\obj\Debug\net7.0\AppBanca.Models.pdb
+C:\Users\danil\OneDrive\Documentos\Projeto App Banca Jardim Novo\AppBanca.Api\AppBanca.Models\obj\Debug\net7.0\ref\AppBanca.Models.dll

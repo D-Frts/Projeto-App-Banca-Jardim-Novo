@@ -1,25 +1,68 @@
-﻿namespace BancaJN.Api.Endpoints;
+﻿using AutoMapper;
+using BancaJN.Api.Data;
+using BancaJN.Api.Data.Repository.Contracts;
+using BancaJN.Api.Entities;
+using BancaJN.Api.Mapping;
+using BancaJN.Model.DataTransferObjects;
+using static Microsoft.AspNetCore.Http.Results;
+
+namespace BancaJN.Api.Endpoints;
 
 public static class ProdutosEndpoints
 {
+
     public static void MapProdutosEndpoints(this WebApplication app)
     {
-        #region Endpoint POST /produto
-        ///<summary>
-        ///Cadastra um produto e persiste no banco de dados, se for nulo retorna Status Code 400 BadRequest.
-        /// </summary>
 
-        app.MapPost("/produto", async (Produto produto, BancaDbContext bancaDbContext) =>
+        #region Endpoint GET /produtos
+        ///<summary>
+        ///Retorna todos os produtos cadastrados no banco de dados, se não existir retorna Status Code 204 NoContent
+        ///</summary>
+
+        app.MapGet("/produtos", async (IProdutoRepositorio repositorio, IMapper mapper) =>
         {
             try
             {
-                if (produto is null)
-                    return Results.BadRequest();
+                var produtos = await repositorio.ObtemItens();
 
-                await bancaDbContext.AddAsync(produto);
-                await bancaDbContext.SaveChangesAsync();
+                var produtosDto = mapper.Map<IEnumerable<ProdutoDTO>>(produtos);
 
-                return Results.Created($"/produto/{produto.Id}", produto);
+                if (produtosDto.Count() < 0) return NoContent();
+
+                return Ok(produtosDto);
+
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        })
+        .Produces(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status204NoContent)
+        .WithTags(EndpointGroupTags.Produtos);
+
+
+
+        #endregion
+
+        #region Endpoint GET /produtos/id
+        ///<summary>
+        ///Retorna um produtos cadastrado no banco de dados pelo Id, se não existir retorna Status Code 404 NotFound
+        ///</summary>
+
+        app.MapGet("/produto/{id:int}", async (int id, IProdutoRepositorio repositorio, IMapper mapper) =>
+        {
+            try
+            {
+                var produto = await repositorio.ObtemItemPorId(id);
+
+                if (produto is null) return NotFound();
+
+                var produtoDto = mapper.Map<ProdutoDTO>(produto);
+
+                return Ok(produtoDto);
             }
             catch (Exception)
             {
@@ -28,24 +71,90 @@ public static class ProdutosEndpoints
             }
 
         })
-        .Produces(StatusCodes.Status201Created)
-        .Produces(StatusCodes.Status400BadRequest)
+        .Produces(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status404NotFound)
+        .WithTags(EndpointGroupTags.Produtos);
+
+
+        #endregion
+
+        #region Endpoint GET /produtos/criterio
+        ///<summary>
+        ///Retorn produtos cadastrado no banco de dados pelo criterio informado, se não existir retorna Status Code 404 NotFound.
+        ///Exemplo de criterio: prdutos que contem 'A' no nome ou 'ADA' serão retornado em uma coleção de produtos
+        ///</summary>
+   
+        app.MapGet("/produtos/{criterio}", async (string criterio, 
+                                                  IProdutoRepositorio repositorio,
+                                                  IMapper mapper) =>
+        {
+            try
+            {
+                var produtos = await repositorio.ObtemItens();
+                var produtosComCriterio = produtos.Where(p => p.Nome.ToLower()
+                                                        .Contains(criterio.ToLower()))
+                                                        .ToList();
+                if (produtosComCriterio.Count() < 0)
+                    return NotFound("Nenhum produto atende ao criterio informado!");
+
+                var produtosComCriterioDto = mapper.Map<IEnumerable<ProdutoDTO>>(produtosComCriterio);
+
+                return Ok(produtosComCriterioDto);
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        })
+        .Produces(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status404NotFound)
         .WithTags(EndpointGroupTags.Produtos);
 
         #endregion
 
-        #region Endpoint GET /produtos
+        #region Endpoint GET /produtosporpagina
         ///<summary>
-        ///Retorna todos os produtos cadastrados no banco de dados, se não existir retorna Status Code 204 NoContent
-        ///</summary>
-        app.MapGet("/produtos", async (BancaDbContext bancaDbContext) =>
+        ///Retorna produtos cadastrado no banco de dados por paginação, se não existir retorna Status Code 404 NotFound.
+        /// </summary>
+
+        //app.MapGet("/produtosporpagina", async (int numeroPagina, int tamanhoPagina, BancaDbContext bancaDbContext) =>
+        //{
+        //    try
+        //    {
+        //        return await bancaDbContext.Produtos
+        //                                   .Skip((numeroPagina - 1) * tamanhoPagina)
+        //                                   .Take(tamanhoPagina)
+        //                                   .ToListAsync();
+        //    }
+        //    catch (Exception)
+        //    {
+
+        //        throw;
+        //    }
+
+        //})
+        //.Produces(StatusCodes.Status200OK)
+        //.Produces(StatusCodes.Status404NotFound)
+        //.WithTags(EndpointGroupTags.Produtos);
+
+        app.MapGet("/produtosporpagina", async (int numeroPagina, 
+                                                int tamanhoPagina, 
+                                                IProdutoRepositorio repositorio,
+                                                IMapper mapper) =>
         {
             try
             {
-                return await bancaDbContext.Produtos.ToListAsync() is IEnumerable<Produto> produtos
-                                                                    ? Results.Ok(produtos)
-                                                                    : Results.NoContent();
+                var produtos = await repositorio.ObtemItens();
 
+                var produtosPaginados = produtos.Skip((numeroPagina - 1) * tamanhoPagina).Take(tamanhoPagina);
+
+                if (produtos is null) return NoContent();
+
+                var produtosDto = mapper.Map<IEnumerable<ProdutoDTO>>(produtos);
+
+                return Ok(produtosDto);
 
             }
             catch (Exception)
@@ -61,73 +170,22 @@ public static class ProdutosEndpoints
 
         #endregion
 
-        #region Endpoint GET /produtos/id
+        #region Endpoint POST /produto
         ///<summary>
-        ///Retorna um produtos cadastrado no banco de dados pelo Id, se não existir retorna Status Code 404 NotFound
-        ///</summary>
-        app.MapGet("/produto/{id:int}", async (int id, BancaDbContext bancaDbContext) =>
-        {
-            try
-            {
-                return await bancaDbContext.Produtos.FindAsync(id) is Produto produto
-                                                                    ? Results.Ok(produto)
-                                                                    : Results.NotFound("Produto não encontrado!");
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        })
-        .Produces(StatusCodes.Status200OK)
-        .Produces(StatusCodes.Status404NotFound)
-        .WithTags(EndpointGroupTags.Produtos);
-
-
-        #endregion
-
-        #region Endpoint GET /produtos/criterio
-        ///<summary>
-        ///Retorn produtos cadastrado no banco de dados pelo criterio informado, se não existir retorna Status Code 404 NotFound.
-        ///Exemplo de criterio: prdutos que contem 'A' no nome ou 'ADA' serão retornado em uma coleção de produtos
-        ///</summary>
-        app.MapGet("/produto/{criterio}", async (string criterio, BancaDbContext bancaDbContext) =>
-        {
-            try
-            {
-                var produtosComCriterio = await bancaDbContext.Produtos.Where(prd => prd.Nome.ToLower()
-                                                                              .Contains(criterio.ToLower()))
-                                                                              .ToListAsync();
-                return produtosComCriterio.Count > 0 ? Results.Ok(produtosComCriterio)
-                                                     : Results.NotFound("Nenhum produto atende ao criterio informado!");
-
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        })
-        .Produces(StatusCodes.Status200OK)
-        .Produces(StatusCodes.Status404NotFound)
-        .WithTags(EndpointGroupTags.Produtos);
-
-
-        #endregion
-
-        #region Endpoint GET /produtosporpagina
-        ///<summary>
-        ///Retorna produtos cadastrado no banco de dados por paginação, se não existir retorna Status Code 404 NotFound.
+        ///Cadastra um produto e persiste no banco de dados, se for nulo retorna Status Code 400 BadRequest.
         /// </summary>
 
-        app.MapGet("/produtosporpagina", async (int numeroPagina, int tamanhoPagina, BancaDbContext bancaDbContext) =>
+        app.MapPost("/produto", async (ProdutoDTO produtoDto, IProdutoRepositorio repositorio, IMapper mapper) =>
         {
             try
-            {
-                return await bancaDbContext.Produtos
-                                           .Skip((numeroPagina - 1) * tamanhoPagina)
-                                           .Take(tamanhoPagina)
-                                           .ToListAsync();
+            {    
+                var produto = await repositorio.AdicionaItem(mapper.Map<Produto>(produtoDto));
+
+
+                return produto is not null ? Created($"/produto/{produto.Id}", produto)
+                                           : BadRequest("Item já exite");
+                                                                 
+
             }
             catch (Exception)
             {
@@ -136,8 +194,8 @@ public static class ProdutosEndpoints
             }
 
         })
-        .Produces(StatusCodes.Status200OK)
-        .Produces(StatusCodes.Status404NotFound)
+        .Produces(StatusCodes.Status201Created)
+        .Produces(StatusCodes.Status400BadRequest)
         .WithTags(EndpointGroupTags.Produtos);
 
         #endregion
@@ -147,58 +205,51 @@ public static class ProdutosEndpoints
         ///Altera propriedades nome de um produto no banco de dados pelo Verbo PUT.
         /// </summary>
 
-        app.MapPut("/produto", async (int produtoId, string produtoNome, BancaDbContext bancaDbContext) =>
-        {
-            try
-            {
-                var produtoAlterar = await bancaDbContext.Produtos.SingleOrDefaultAsync(p => p.Id == produtoId);
+        //app.MapPut("/produto", async (int produtoId, string produtoNome, BancaDbContext bancaDbContext) =>
+        //{
+        //    try
+        //    {
+        //        var produtoAlterar = await bancaDbContext.Produtos.SingleOrDefaultAsync(p => p.Id == produtoId);
 
-                if (produtoAlterar is null) return Results.NotFound("Produto não encontrado!");
+        //        if (produtoAlterar is null) return Results.NotFound("Produto não encontrado!");
 
-                produtoAlterar.Nome = produtoNome;
+        //        produtoAlterar.Nome = produtoNome;
 
-                await bancaDbContext.SaveChangesAsync();
+        //        await bancaDbContext.SaveChangesAsync();
 
-                return Results.Ok(produtoAlterar);
-            }
-            catch (Exception)
-            {
+        //        return Results.Ok(produtoAlterar);
+        //    }
+        //    catch (Exception)
+        //    {
 
-                throw;
-            }
-        })
-        .Produces(StatusCodes.Status200OK)
-        .Produces(StatusCodes.Status404NotFound)
-        .WithTags(EndpointGroupTags.Produtos);
+        //        throw;
+        //    }
+        //})
+        //.Produces(StatusCodes.Status200OK)
+        //.Produces(StatusCodes.Status404NotFound)
+        //.WithTags(EndpointGroupTags.Produtos);
 
         #endregion
 
         #region Endpoint PUT /produto/id
+
         ///<summary>
-        ///Altera toda entidade produto no banco de dados pelo Verbo PUT com novas propriendades recebidas via parametro.
+        ///Altera toda entidade produto no banco de dados pelo Verbo PUT com novas propriedades recebidas via parametro.
         /// </summary>
 
-        app.MapPut("/produto/{id:int}", async (int id, Produto produto, BancaDbContext bancaDbContext) =>
+        app.MapPut("/produto/{itemId:int}", async (int itemId,
+                                                   ProdutoDTO produtoDto, 
+                                                   IProdutoRepositorio repositorio, 
+                                                   IMapper mapper) =>
         {
             try
             {
-                if (produto.Id != id) return Results.BadRequest("Id's não conferem!");
+                if (itemId != produtoDto.Id) return BadRequest("Id's não conferem");
 
-                var produtoAlterar = await bancaDbContext.Produtos.SingleOrDefaultAsync(p => p.Id == id);
+                var produtoAtualizado = await repositorio.AtualizaItem(mapper.Map<Produto>(produtoDto));
 
-                if (produtoAlterar is null) return Results.NotFound("Produto não encontrado!");
-
-                produtoAlterar.Nome = produto.Nome;
-                produtoAlterar.Codigo = produto.Codigo;
-                produtoAlterar.Descricao = produto.Descricao;
-                produtoAlterar.Preco = produto.Preco;
-                produtoAlterar.Quantidade = produtoAlterar.Quantidade;
-                produtoAlterar.ImagemUrl = produto.ImagemUrl;
-                produtoAlterar.CategoriaId = produto.CategoriaId;
-
-                await bancaDbContext.SaveChangesAsync();
-
-                return Results.Ok(produtoAlterar);
+                return produtoAtualizado is null ? NotFound("Produto não encontrado!")
+                                                 : Ok(produtoAtualizado);
             }
             catch (Exception)
             {
@@ -214,31 +265,30 @@ public static class ProdutosEndpoints
         #endregion
 
         #region Endpoint DELETE /produto/id
+
         ///<summary>
         ///Exclui um produto no banco de dados pelo Id informado, se não encontrado retorna Status Code 404 NotFound
         /// </summary>
 
-        app.MapDelete("/produto/{id:int}", async (int id, BancaDbContext bancaDbContext) =>
+        app.MapDelete("/produto/{itemId:int}", async (int itemId, IProdutoRepositorio repositorio) =>
         {
             try
             {
-                var produtoExcluir = await bancaDbContext.Produtos.FindAsync(id);
+                var resultado = await repositorio.ExcluiItemPorId(itemId);
 
-                if (produtoExcluir is null) return Results.NotFound("Produto não encontrado!");
+                if (resultado is null)
+                    return NotFound("Item não encontrado!");
 
-                bancaDbContext.Produtos.Remove(produtoExcluir);
-                await bancaDbContext.SaveChangesAsync();
-
-                return Results.Ok(produtoExcluir);
-
+                return Ok(resultado);
             }
             catch (Exception)
             {
 
                 throw;
             }
+
         })
-        .Produces(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status204NoContent)
         .Produces(StatusCodes.Status404NotFound)
         .WithTags(EndpointGroupTags.Produtos);
 

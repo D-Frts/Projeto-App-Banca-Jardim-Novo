@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "ttfiLKsDsNH500+cT8KaU/kwLelFELG8vgBXnDHGj0w=",
+  "Source": "AppBanca.Api",
+  "BasePath": "_content/AppBanca.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
