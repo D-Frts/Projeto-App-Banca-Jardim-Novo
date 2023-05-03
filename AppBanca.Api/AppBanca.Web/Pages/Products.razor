@@ -1,0 +1,59 @@
+﻿@page "/produtos"
+@inject IBancaService<Product> productService
+
+
+@if (products != null)
+{
+    <h3>Produtos</h3>
+    <div>
+        <!-- #region  -->
+        @*<table class="table table-responsive-sm table-hover table-striped">
+           <thead>
+               <tr>
+                   <th scope="col">Id</th>
+                   <th scope="col">Produto</th>
+                   <th scope="col">Preço</th>
+                   <th scope="col">Quantidade</th>
+               </tr>
+           </thead>
+           <tbody>
+               @foreach (var item in products)
+               {
+                   <tr>
+                       <td>@item.Id</td>
+                       <td>@item.Name</td>
+                       <td>R$ @item.Price.ToString()</td>
+                       <td>@item.Quantity</td>
+                   </tr>
+               }
+           </tbody>
+        </table>*@
+
+        <!-- #endregion -->
+
+        <SfGrid DataSource="@products">
+            <GridColumns>
+                <GridColumn Field=@nameof(Product.Name) HeaderText="Produto" TextAlign="TextAlign.Center" Width="120"></GridColumn>
+                <GridColumn Field=@nameof(Product.Price) HeaderText="Preço" Format="C2" TextAlign="TextAlign.Center" Width="120"></GridColumn>
+                <GridColumn Field=@nameof(Product.Quantity) HeaderText="Quantidade" TextAlign="TextAlign.Center" Width="120"></GridColumn>
+            </GridColumns>
+        </SfGrid>
+
+    </div>
+}
+else
+{
+    <h3>Carregando Produtos...</h3>
+}
+
+@code {
+
+    [Inject]
+    public IEnumerable<Product> products { get; set; }
+    public string EndpointUri = "/produtos";
+
+    protected override async Task OnInitializedAsync()
+    {
+        products = await productService.GetItems(EndpointUri);
+    }
+}

@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\AppBanca.Web.props" />
+</Project>

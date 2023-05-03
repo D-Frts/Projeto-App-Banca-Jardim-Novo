@@ -1,0 +1,43 @@
+﻿using System.Net.Http.Json;
+
+namespace AppBanca.Web.Services.Intefaces;
+
+public abstract class BancaService<T> : IBancaService<T> where T : class
+{
+    private readonly HttpClient httpClient;
+    private readonly ILogger<BancaService<T>> logger;
+
+    public BancaService(HttpClient httpClient, ILogger<BancaService<T>> logger)
+    {
+        this.httpClient = httpClient;
+        this.logger = logger;
+    }
+    public async Task<T> GetItem(int id, string uri)
+    {
+        try
+        {
+            var item = await httpClient.GetFromJsonAsync<T>(uri);
+            return item;
+
+        }
+        catch (Exception ex)
+        {
+            logger.LogError($"Erro ao tentar acessar: {uri}/n", ex.Message);
+            throw;
+        }
+    }
+
+    public async Task<IEnumerable<T>> GetItems(string uri)
+    {
+        try
+        {
+            return await httpClient.GetFromJsonAsync<IEnumerable<T>>(uri);
+            
+        }
+        catch (Exception ex)
+        {
+            logger.LogError($"Erro ao tentar acessar: {uri}", ex.Message);
+            throw;
+        }
+    }
+}

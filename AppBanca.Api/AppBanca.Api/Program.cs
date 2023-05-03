@@ -14,6 +14,8 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors();
+
 builder.Services.AddDbContext<AppBancaDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("SQLServerConnection"));
@@ -37,6 +39,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors(policy =>
+{
+    policy.WithOrigins("https://localhost:7145", "http://localhost:5007");
+    policy.AllowAnyMethod();
+    policy.AllowAnyHeader();
+});
 
 app.MapProductsEndpoints();
 app.MapCategoriesEndpoints();
