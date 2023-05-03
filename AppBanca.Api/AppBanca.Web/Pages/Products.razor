@@ -31,7 +31,7 @@
 
         <!-- #endregion -->
 
-        <SfGrid DataSource="@products">
+        <SfGrid DataSource="@products" AllowSorting="true">
             <GridColumns>
                 <GridColumn Field=@nameof(Product.Name) HeaderText="Produto" TextAlign="TextAlign.Center" Width="120"></GridColumn>
                 <GridColumn Field=@nameof(Product.Price) HeaderText="Preço" Format="C2" TextAlign="TextAlign.Center" Width="120"></GridColumn>
