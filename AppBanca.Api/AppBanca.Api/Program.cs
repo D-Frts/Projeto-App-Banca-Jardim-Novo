@@ -6,7 +6,7 @@ using AppBanca.Api.Repository.Iterfaces;
 using AppBanca.Models.Domain;
 using Microsoft.EntityFrameworkCore;
 
-#region Adiciona registro dos Serviços ao conteiner DI
+#region Adiciona registro dos Serviï¿½os ao conteiner DI
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,8 +21,7 @@ builder.Services.AddDbContext<AppBancaDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("SQLServerConnection"));
 });
 
-builder.Services.AddAutoMapper(typeof(InputMappings));
-builder.Services.AddAutoMapper(typeof(OutputMappings));
+builder.Services.AddAutoMapper(typeof(Mappings));
 
 builder.Services.AddScoped <IRepository<Category>, CategoryRepository>();
 builder.Services.AddScoped<IRepository<Product>, ProductRepository>();

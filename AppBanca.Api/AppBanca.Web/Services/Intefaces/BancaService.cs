@@ -12,6 +12,35 @@ public abstract class BancaService<T> : IBancaService<T> where T : class
         this.httpClient = httpClient;
         this.logger = logger;
     }
+
+    public async Task AddItem(T item, string uri)
+    {
+        try
+        {
+            await httpClient.PostAsJsonAsync<T>(uri, item);
+            return;
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+    }
+
+    public virtual async Task DeleteItem(string uri)
+    {
+        try
+        {
+            await httpClient.DeleteAsync(uri);            
+
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+    }
+
     public async Task<T> GetItem(int id, string uri)
     {
         try
@@ -22,7 +51,7 @@ public abstract class BancaService<T> : IBancaService<T> where T : class
         }
         catch (Exception ex)
         {
-            logger.LogError($"Erro ao tentar acessar: {uri}/n", ex.Message);
+            logger.LogError($"Erro ao tentar acessar: {uri}", ex.Message);
             throw;
         }
     }
@@ -39,5 +68,10 @@ public abstract class BancaService<T> : IBancaService<T> where T : class
             logger.LogError($"Erro ao tentar acessar: {uri}", ex.Message);
             throw;
         }
+    }
+
+    public virtual async Task UpdateItem(T obj, string uri)
+    {
+        await httpClient.PutAsJsonAsync<T>(uri, obj);
     }
 }

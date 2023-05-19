@@ -30,10 +30,9 @@
       "Microsoft.JSInterop.dll": "sha256-OBt2YgODs1L5bJWrDjUFgcgGMUjDfmFTHCt9t69RxgU=",
       "Microsoft.JSInterop.WebAssembly.dll": "sha256-GH0zLXwtZcak53A9656ZndP15W57wd1W0kLvKDIV+VE=",
       "Newtonsoft.Json.dll": "sha256-SBbEJ29XXk2FuAYzoN8urfKUlv4AvcM814Q+YTc73g4=",
-      "Syncfusion.Blazor.dll": "sha256-J8ROCogI2JkGlFUNTIH7JCwZWL\/xjZEqHzu1fqOpb0k=",
-      "Syncfusion.ExcelExport.Net.dll": "sha256-9mYRBUMgCuz9Appp7L5fI72l4dd0virjet5JkfF23v0=",
-      "Syncfusion.Licensing.dll": "sha256-mTHFzk\/Hgfwocb6TP0iIPdk1D\/zQm8YSjY\/wh5IMUMM=",
-      "Syncfusion.PdfExport.Net.dll": "sha256-RKnWF2ApxEWkIyj8DoS\/Utssp+IQQviWyE1k+i24HHU=",
+      "Syncfusion.Blazor.dll": "sha256-05UO9ySldsk0LdH6hOJXSrlDIR8YsiSwhPTT4110OO8=",
+      "Syncfusion.ExcelExport.Net.dll": "sha256-A423+kL6BvY8YNZg7Uz\/+9uTvr9mZ900+g+OSkRNBcw=",
+      "Syncfusion.PdfExport.Net.dll": "sha256-ErN25GmuxgJ60e5DdKib1jG5yMAEEPjEOFWfsw3PmSY=",
       "System.IO.Pipelines.dll": "sha256-P\/MqD0fCBd5bgTM16JC1QC\/Zz7s+CwViyzmDFkBG4\/c=",
       "Microsoft.CSharp.dll": "sha256-6Y1rN8knL1K5x5lsZ2tEVDND2h4LtDSuVgCg1N8ghkA=",
       "Microsoft.VisualBasic.Core.dll": "sha256-LRJ4hN7opopr3bsogxcz7uyVjh4bNZOdMbVbIIQ9z+8=",
@@ -203,15 +202,15 @@
       "mscorlib.dll": "sha256-qqpKd+W+AFb6UxudEYEKzrz7ma81p5LrWUwPBVvHV4U=",
       "netstandard.dll": "sha256-OYYuPT3JUknj4LdYIa58zF7kDB3tCnLzjCSuhEjtKXM=",
       "System.Private.CoreLib.dll": "sha256-EVS7zPxPV\/41g2mzPwdXtwiigWxI\/SeAHme1IgyD6tc=",
-      "AppBanca.Models.dll": "sha256-8enNTb7VHI+NR+QYgStZShXtMzbeYs\/4su3lmeHv4Vk=",
-      "AppBanca.Web.dll": "sha256-R0as6QBQZBvxP4csvapLtcqRsKPnCU3LA8g6TNppcVg="
+      "AppBanca.Models.dll": "sha256-rjb\/lb+w10dZstUqG16kY+PJVMH9S1x\/fnHh0A166eE=",
+      "AppBanca.Web.dll": "sha256-TGyZaqPqWKwNwqMUrWQUUU7UONlEjVtnkB2SG+4LSes="
     },
     "extensions": null,
     "lazyAssembly": null,
     "libraryInitializers": null,
     "pdb": {
-      "AppBanca.Models.pdb": "sha256-+TXlwomg1TRvjlvIrm+9G0GD7Qc7Yz5K4GmEbqAGxLE=",
-      "AppBanca.Web.pdb": "sha256-afAQNia8DiLw+NYos\/76jAyXz2IyxvBmoQVBmTaPpfI="
+      "AppBanca.Models.pdb": "sha256-y0qPU9rVz0tveSmS9VvRAz6T0jtzc8xjjAI7uisSLMI=",
+      "AppBanca.Web.pdb": "sha256-ZdzC27\/UrC3PoBUZl\/J4C9uzsBgkIbuz6HYq7AAzydI="
     },
     "runtime": {
       "dotnet.7.0.5.th3iz77h06.js": "sha256-codB25EodaFEP43MDCfMBuKXU4LqurUKnQrpoMIFnPs=",

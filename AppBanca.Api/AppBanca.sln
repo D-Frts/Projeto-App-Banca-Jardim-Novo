@@ -10,7 +10,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppBanca.Api", "AppBanca.Ap
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppBanca.Models", "AppBanca.Models\AppBanca.Models.csproj", "{93FE6A61-8784-4C51-A776-342F64B9506E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppBanca.Web", "AppBanca.Web\AppBanca.Web.csproj", "{9B3209FC-5DF5-4CB6-AEBD-043E79CDF378}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppBanca.Web", "AppBanca.Web\AppBanca.Web.csproj", "{9B3209FC-5DF5-4CB6-AEBD-043E79CDF378}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

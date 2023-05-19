@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "+t28dVCwTGR28k9Oq4LAFRgopOtM9PobBWOFHT/3AvPnGSzT9As4Ss1b1P4LQpFHDfHtuQpSD5kcVnKCTwZ/WQ==",
+  "dgSpecHash": "v4zLtkgcHVrC3X7N4MVaBC3zKM3xk3A/bi0g1mjElNi937DPSD5yxIW/8Tgn11bCtZMxnxsjf9epOmZFzgogjQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\danil\\OneDrive\\Documentos\\Projeto App Banca Jardim Novo\\AppBanca.Api\\AppBanca.Web\\AppBanca.Web.csproj",
   "expectedPackageFiles": [
@@ -29,10 +29,9 @@
     "C:\\Users\\danil\\.nuget\\packages\\microsoft.jsinterop\\7.0.5\\microsoft.jsinterop.7.0.5.nupkg.sha512",
     "C:\\Users\\danil\\.nuget\\packages\\microsoft.jsinterop.webassembly\\7.0.5\\microsoft.jsinterop.webassembly.7.0.5.nupkg.sha512",
     "C:\\Users\\danil\\.nuget\\packages\\newtonsoft.json\\13.0.2\\newtonsoft.json.13.0.2.nupkg.sha512",
-    "C:\\Users\\danil\\.nuget\\packages\\syncfusion.blazor\\21.1.35\\syncfusion.blazor.21.1.35.nupkg.sha512",
-    "C:\\Users\\danil\\.nuget\\packages\\syncfusion.excelexport.net.core\\21.1.35\\syncfusion.excelexport.net.core.21.1.35.nupkg.sha512",
-    "C:\\Users\\danil\\.nuget\\packages\\syncfusion.licensing\\21.1.35\\syncfusion.licensing.21.1.35.nupkg.sha512",
-    "C:\\Users\\danil\\.nuget\\packages\\syncfusion.pdfexport.net.core\\21.1.35\\syncfusion.pdfexport.net.core.21.1.35.nupkg.sha512",
+    "C:\\Users\\danil\\.nuget\\packages\\syncfusion.blazor\\21.2.3\\syncfusion.blazor.21.2.3.nupkg.sha512",
+    "C:\\Users\\danil\\.nuget\\packages\\syncfusion.excelexport.net.core\\21.2.3\\syncfusion.excelexport.net.core.21.2.3.nupkg.sha512",
+    "C:\\Users\\danil\\.nuget\\packages\\syncfusion.pdfexport.net.core\\21.2.3\\syncfusion.pdfexport.net.core.21.2.3.nupkg.sha512",
     "C:\\Users\\danil\\.nuget\\packages\\system.io.pipelines\\7.0.0\\system.io.pipelines.7.0.0.nupkg.sha512",
     "C:\\Users\\danil\\.nuget\\packages\\system.text.encodings.web\\7.0.0\\system.text.encodings.web.7.0.0.nupkg.sha512",
     "C:\\Users\\danil\\.nuget\\packages\\system.text.json\\7.0.0\\system.text.json.7.0.0.nupkg.sha512",

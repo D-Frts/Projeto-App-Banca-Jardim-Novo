@@ -110,7 +110,7 @@
             },
             "Syncfusion.Blazor": {
               "target": "Package",
-              "version": "[21.1.35, )"
+              "version": "[21.2.3, )"
             }
           },
           "imports": [
