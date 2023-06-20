@@ -1,0 +1,298 @@
+﻿@page "/"
+@page "/vendas"
+@inject IBancaService<ProductDto> ProductService
+@inject IJSRuntime JS
+
+
+<div class="container">
+    <div class="row text-center">
+        <h2>Vendas Balcão</h2>
+    </div>
+
+    <div class="row">
+
+        <div class="col">
+            <div class="row mt-0 mb3">
+                <div class="col p-0 ">
+                    <label for="SEARCHBOX" class="form-label col-form-label-sm m-0 pb-1"> Procurar Produto</label>
+                    <input type="search" id="SEARCHBOX" list="SUGGESTIONS" class="form-control form-control-lg text-start" placeholder="Digite o nome ou código" @bind="@SearchText" @bind:event="oninput" @bind:after="@OnSelect" />
+                    <datalist id="SUGGESTIONS" style="max-height: 400px;">
+                        @if (ProductsDtos is not null)
+                        {
+                            @foreach (var item in ProductsDtos)
+                            {
+                                <option value="@item.Code">@item.Name</option>
+                            }
+                        }
+
+                    </datalist>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col mx-0 my-4 p-0 col-auto">
+                    <img class="img-thumbnail" src="images/cruzadinha.jpeg" width="100" height="100" />
+                </div>
+                <div class="col my-4">
+                    <form class="mt-0">
+
+                        <div class="row mt-0 mb-3">
+                            <label for="NOME" class="col-form-label col-form-label-sm col-3 align-self-center text-end p-0 pe-2">NOME</label>
+                            <div class="col p-0">
+                                <input type="text" id="NOME" class="form-control form-control-lg text-end" @bind-value="@inputName" readonly />
+                            </div>
+                        </div>
+                        <div class="row mt-0 mb-3">
+                            <label for="CODIGO" class="col-form-label col-form-label-sm col-3 align-self-center text-end p-0 pe-2">CÓDIGO</label>
+                            <div class="col p-0">
+                                <input type="text" id="CODIGO" class="form-control form-control-lg text-end" @bind-value="@inputCode" readonly />
+                            </div>
+                        </div>
+                        <div class="row mt-0 mb-3">
+                            <label for="VALOR-UNITARIO" class="col-form-label col-form-label-sm col-3 align-self-center text-end p-0 pe-2">VALOR UNITÁRIO</label>
+                            <div class="col p-0">
+                                @{
+                                    var price = inputPrice == 0 ? "" : ("R$ " + inputPrice.ToString());
+                                }
+                                <input type="text" id="VALOR-UNITARIO" class="form-control form-control-lg text-end" @bind-value="@price" readonly />
+                            </div>
+                        </div>
+                        <div class="row mt-0 mb-3">
+                            <label for="QUANTIDADE" class="col-form-label col-form-label-sm col-3 align-self-center text-end p-0 pe-2">QUANTIDADE</label>
+                            <div class="col p-0">
+                                <input @ref="@QuantityInput" type="number" id="QUANTIDADE" class="form-control form-control-lg text-center" @bind="@inputQtd" />
+                            </div>
+                        </div>
+                        <div class="row mt-0 mb-3">
+                            <label for="DESCONTO" class="col-form-label col-form-label-sm col-3 align-self-center text-end p-0 pe-2">DESCONTO</label>
+                            <div class="col col-6 p-0">
+                                <input type="number" id="DESCONTO" class="form-control form-control-lg text-center" />
+                            </div>
+                            <div class="col col-3 p-0 ps-2">
+                                <select class="form-select form-select-lg px-1 text-center">
+                                    <option value="1" selected>R$</option>
+                                    <option value="2">%</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="d-grid p-0 col-9 offset-3">
+                                <button @ref="AdicionarProdutoButton" type="button" class="btn btn-primary" @onclick="@OnAddProduct" disabled="@AdicionarProdutoButtonDisable"> ADICIONAR PRODUTO</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col ms-5 p-0">
+
+            <div class="row">
+                <div class="col p-0">
+                    <SfGrid @ref="SfProductsListGrid" DataSource="StaticProductsList" AllowSelection="true" RowHeight="24" EnableStickyHeader="true" Width="auto" Height="300">
+                        <GridSelectionSettings Type="Syncfusion.Blazor.Grids.SelectionType.Multiple" CheckboxOnly="true" />
+                        <GridColumns>
+                            <GridColumn Type="ColumnType.CheckBox" Width="24">
+                                <HeaderTemplate></HeaderTemplate>
+                            </GridColumn>
+                            <GridColumn Field="@nameof(ProductDto.Code)" IsPrimaryKey="true" HeaderText="CODIGO" AllowEditing="false" TextAlign="TextAlign.Center" AutoFit="true" />
+                            <GridColumn Field="@nameof(ProductDto.Name)" HeaderText="NOME" AllowEditing="false" TextAlign="TextAlign.Center" AutoFit="false" />
+                            <GridColumn Field="@nameof(ProductDto.Quantity)" HeaderText="QTD" AllowEditing="false" TextAlign="TextAlign.Center" AutoFit="true" />
+                            <GridColumn Field="@nameof(ProductDto.Price)" HeaderText="VALOR" AllowEditing="false" TextAlign="TextAlign.Center" AutoFit="true" />
+
+                        </GridColumns>
+                    </SfGrid>
+                </div>
+            </div>
+            <div class="row mt-2 mb-3">
+                <div class="col p-0">
+                    <label for="TOTAL-PEDIDO" class="col-form-label col-form-label-sm col-4 align-self-center text-start p-0">TOTAL DO PEDIDO</label>
+                    <input type="number" id="TOTAL-PEDIDO" class="form-control form-control-lg text-end" @bind-value="@totalSale" readonly />
+                </div>
+                <div class="container text-center p-0">
+                    <div class="row align-items-center my-3">
+                        <div class="col d-grid">
+                            <button @ref="RemoverButton" type="button" class="btn btn-danger" @onclick="@OnBatchRemove" disabled="@RemoverButtonDisable">REMOVER</button>
+                        </div>
+                        <div class="col d-grid">
+                            <button @ref="CancelarButton" @onclick="@OnCancel" type="button" class="btn btn-secondary" disabled="@CancelarButtonDisable">CANCELAR</button>
+                        </div>
+                    </div>
+                    <div class="d-grid">
+                        <button @ref="FinalizarVendaButton" @onclick="OnFinishSale" type="button" class="btn btn-success" disabled="@FinalizarVendaButtonDisable">FINALIZAR VENDA</button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@code{
+
+    private IEnumerable<ProductDto>? ProductsDtos { get; set; }
+
+    public static List<ProductDto> StaticProductsList = new();
+
+    private static ProductDto SelectedItem;
+
+    private string SearchText = "";
+    private string inputName = "";
+    private string inputCode = "";
+    private decimal inputPrice = 0.0m;
+    private int inputQtd = 0;
+    private static decimal totalSale = 0.0m;
+
+    private bool AdicionarProdutoButtonDisable = true;
+    private bool CancelarButtonDisable = true;
+    private bool RemoverButtonDisable = true;
+    private bool FinalizarVendaButtonDisable = true;
+
+    private SfGrid<ProductDto>? SfProductsListGrid { get; set; }
+
+    private ElementReference CancelarButton { get; set; }
+    private ElementReference RemoverButton { get; set; }
+    private ElementReference FinalizarVendaButton { get; set; }
+    private ElementReference AdicionarProdutoButton { get; set; }
+    private ElementReference QuantityInput { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await JS.InvokeVoidAsync("console.clear");
+        ProductsDtos = await ProductService.GetItems("/produtos");
+
+    }
+
+    public async Task OnSelect()
+    {
+        if (SearchText.Length > 0)
+        {
+            var item = ProductsDtos?.FirstOrDefault(i => i.Code == SearchText);
+
+            if (item is null)
+            {
+                AdicionarProdutoButtonDisable = true;
+                await ClearDisplay();
+                return;
+            }
+
+            inputName = item.Name;
+            inputCode = item.Code;
+            inputPrice = item.Price;
+            AdicionarProdutoButtonDisable = false;
+            await AdicionarProdutoButton.FocusAsync();
+        }
+        else
+        {
+            await ClearDisplay();
+        }
+    }
+
+    public async Task OnAddProduct()
+    {
+        if (inputQtd <= 0)
+        {
+            AdicionarProdutoButtonDisable = true;
+            await QuantityInput.FocusAsync();
+            return;
+        }
+
+        SelectedItem = new ProductDto
+        {
+            Name = inputName,
+            Code = inputCode,
+            Price = inputPrice,
+            Quantity = inputQtd
+        };
+
+        StaticProductsList.Add(SelectedItem);
+
+        await TotalSale();
+        await ClearDisplay();
+        AdicionarProdutoButtonDisable = true;
+        await FinalizarVendaButton.FocusAsync();
+    }
+
+    public async Task OnCancel()
+    {
+        if (StaticProductsList.Count > 0)
+        {
+            StaticProductsList.Clear();
+            await TotalSale();
+            await ClearDisplay();
+
+        }
+    }
+
+    public async Task OnBatchRemove()
+    {
+        var toRemoveRecords = await SfProductsListGrid.GetSelectedRecordsAsync();
+
+        if (toRemoveRecords.ToList().Count > 0)
+        {
+            await RemoverButton.FocusAsync();
+            foreach (var item in toRemoveRecords)
+            {
+                StaticProductsList.Remove(item);
+            }
+            await TotalSale();
+            await ClearDisplay();
+        }
+    }
+
+    public async Task OnFinishSale()
+    {
+        await OnCancel();
+        await ClearDisplay();
+        return;
+    }
+
+    public async Task Refresh()
+    {
+        await SfProductsListGrid.Refresh();
+    }
+
+    public Task ClearDisplay()
+    {
+        inputName = "";
+        inputCode = "";
+        inputPrice = 0.0m;
+        inputQtd = 0;
+        SearchText = "";
+        return Task.CompletedTask;
+    }
+
+    public async Task TotalSale()
+    {
+        if (StaticProductsList != null)
+        {
+            totalSale = 0.0m;
+            foreach (var item in StaticProductsList)
+            {
+                totalSale += (item.Price * item.Quantity);
+            }
+            if(StaticProductsList.Count > 0)
+            {
+                RemoverButtonDisable = false;
+                CancelarButtonDisable = false;
+                FinalizarVendaButtonDisable = false;
+            }
+            else
+            {
+                RemoverButtonDisable = true;
+                CancelarButtonDisable = true;
+                FinalizarVendaButtonDisable = true;
+            }
+        }
+
+        await Refresh();
+    }
+
+
+
+}

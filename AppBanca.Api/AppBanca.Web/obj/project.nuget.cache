@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "v4zLtkgcHVrC3X7N4MVaBC3zKM3xk3A/bi0g1mjElNi937DPSD5yxIW/8Tgn11bCtZMxnxsjf9epOmZFzgogjQ==",
+  "dgSpecHash": "7MnKEIcG/qHWKtfCboz5NndbURGYXJz2VlI8ClK361gPAaUpJgmvYahEORiu6aewTiYZ/WXo81Wq6htx3LLOig==",
   "success": true,
   "projectFilePath": "C:\\Users\\danil\\OneDrive\\Documentos\\Projeto App Banca Jardim Novo\\AppBanca.Api\\AppBanca.Web\\AppBanca.Web.csproj",
   "expectedPackageFiles": [
@@ -35,7 +35,7 @@
     "C:\\Users\\danil\\.nuget\\packages\\system.io.pipelines\\7.0.0\\system.io.pipelines.7.0.0.nupkg.sha512",
     "C:\\Users\\danil\\.nuget\\packages\\system.text.encodings.web\\7.0.0\\system.text.encodings.web.7.0.0.nupkg.sha512",
     "C:\\Users\\danil\\.nuget\\packages\\system.text.json\\7.0.0\\system.text.json.7.0.0.nupkg.sha512",
-    "C:\\Users\\danil\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\7.0.5\\microsoft.netcore.app.runtime.mono.browser-wasm.7.0.5.nupkg.sha512"
+    "C:\\Users\\danil\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\7.0.7\\microsoft.netcore.app.runtime.mono.browser-wasm.7.0.7.nupkg.sha512"
   ],
   "logs": []
 }

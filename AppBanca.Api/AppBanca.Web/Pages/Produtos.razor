@@ -6,38 +6,12 @@
 {
     <h3>Produtos</h3>
     <div>
-        <!-- #region Bootstrap Table -->
-        @*<table class="table table-responsive-sm table-hover table-striped">
-               <thead>
-                   <tr>
-                       <th scope="col">Id</th>
-                       <th scope="col">Produto</th>
-                       <th scope="col">Preço</th>
-                       <th scope="col">Quantidade</th>
-                   </tr>
-               </thead>
-               <tbody>
-                   @foreach (var item in products)
-                   {
-                       <tr>
-                           <td>@item.Id</td>
-                           <td>@item.Name</td>
-                           <td>R$ @item.Price.ToString()</td>
-                           <td>@item.Quantity</td>
-                       </tr>
-                   }
-               </tbody>
-            </table>*@
-
-        <!-- #endregion -->
-        <!-- #region SyncFusion Data Grid Component -->
-
         @{
             var Toolbar = new List<object> { "Add", "Search" };
         }
         <SfGrid @ref="SfProductsGrid" DataSource="@ProductsDto" AllowPaging="true" AllowSorting="true" AllowResizing="true" AllowGrouping="true" EnableStickyHeader="true" Toolbar="@Toolbar">
 
-            <GridEditSettings Mode="EditMode.Normal" AllowAdding="true" AllowDeleting="true" AllowEditing="true" ShowDeleteConfirmDialog="true"/>
+            <GridEditSettings Mode="EditMode.Normal" AllowAdding="true" AllowDeleting="true" AllowEditing="true" ShowDeleteConfirmDialog="true" />
 
             <GridEvents OnActionBegin="ActionBeginHandler" OnActionComplete="ActionCompleteHandler" TValue="ProductDto"></GridEvents>
 
@@ -50,7 +24,7 @@
                 <GridColumn Field=@nameof(ProductDto.CategoryId) HeaderText="Categoria" TextAlign="TextAlign.Center" MinWidth="50" Width="170">
 
                     <Template>
-                        <SfDropDownList @bind-Value="@((context as ProductDto).CategoryId)" 
+                        <SfDropDownList @bind-Value="@((context as ProductDto).CategoryId)"
                                         ID="Categoria"
                                         DataSource="@CategoriesDto" TItem="CategoryDto"
                                         TValue="int" Readonly="true">
@@ -68,15 +42,15 @@
 
                 </GridColumn>
 
-                <GridColumn Field=@nameof(ProductDto.Code) HeaderText="Código" TextAlign="TextAlign.Center" DefaultValue="null" MinWidth="50" AutoFit="true"/>
+                <GridColumn Field=@nameof(ProductDto.Code) HeaderText="Código" TextAlign="TextAlign.Center" DefaultValue="null" MinWidth="50" AutoFit="true" />
 
-                <GridColumn Field=@nameof(ProductDto.Name) HeaderText="Produto" TextAlign="TextAlign.Center" MinWidth="100" Width="150"/>
+                <GridColumn Field=@nameof(ProductDto.Name) HeaderText="Produto" TextAlign="TextAlign.Center" MinWidth="100" Width="150" />
 
-                <GridColumn Field=@nameof(ProductDto.Description) HeaderText="Descrição" DefaultValue="null" TextAlign="TextAlign.Center" MinWidth="100"/>
+                <GridColumn Field=@nameof(ProductDto.Description) HeaderText="Descrição" DefaultValue="null" TextAlign="TextAlign.Center" MinWidth="100" />
 
-                <GridColumn Field=@nameof(ProductDto.Price) HeaderText="Preço" Format="C2" TextAlign="TextAlign.Center"  MinWidth="75"/>
+                <GridColumn Field=@nameof(ProductDto.Price) HeaderText="Preço" Format="C2" TextAlign="TextAlign.Center" MinWidth="75" />
 
-                <GridColumn Field=@nameof(ProductDto.Quantity) HeaderText="Quantidade" TextAlign="TextAlign.Center" EditType="EditType.DefaultEdit" MinWidth="50"/>
+                <GridColumn Field=@nameof(ProductDto.Quantity) HeaderText="Quantidade" TextAlign="TextAlign.Center" EditType="EditType.DefaultEdit" MinWidth="50" />
 
 
 
@@ -96,7 +70,7 @@
                     </GridForeignColumn>*@
 
                 <GridColumn Field=@nameof(ProductDto.ImageUrl) HeaderText="Imagem URL" DefaultValue="null"
-                            TextAlign="TextAlign.Center" Width="auto" Visible="false"/>
+                            TextAlign="TextAlign.Center" Width="auto" Visible="false" />
 
                 <GridColumn Field=@nameof(ProductDto.Invoice) HeaderText="Nota Fiscal" DefaultValue="null"
                             TextAlign="TextAlign.Center" AutoFit="true" />
@@ -106,7 +80,7 @@
                     <GridCommandColumns>
                         <GridCommandColumn Type="CommandButtonType.Edit" Title="Editar"
                                            ButtonOption="@(new CommandButtonOptions()
-                                                           { 
+                                                           {
                                                                IconCss = "e-icons e-edit",
                                                                CssClass = "e-flat"
                                                            })"></GridCommandColumn>
@@ -116,15 +90,15 @@
                                                                CssClass = "e-flat"
                                                            })"></GridCommandColumn>
                         <GridCommandColumn Type="CommandButtonType.Save" Title="Salvar"
-                                           ButtonOption="@(new CommandButtonOptions() { 
-                                                               IconCss = "e-icons e-update", 
-                                                               CssClass = "e-flat" 
+                                           ButtonOption="@(new CommandButtonOptions() {
+                                                               IconCss = "e-icons e-update",
+                                                               CssClass = "e-flat"
                                                            })"></GridCommandColumn>
                         <GridCommandColumn Type="CommandButtonType.Cancel" Title="Cancelar"
                                            ButtonOption="@(new CommandButtonOptions()
                                                            {
                                                                IconCss = "e-icons e-cancel-icon",
-                                                               CssClass = "e-flat" 
+                                                               CssClass = "e-flat"
                                                            })"></GridCommandColumn>
                     </GridCommandColumns>
                 </GridColumn>
@@ -141,5 +115,10 @@
 }
 else
 {
-    <h3>Carregando Produtos...</h3>
+
+    <h4 class="float-lg-start">
+        Carregando Produtos... <span class="spinner-border text-secondary" role="status">
+        </span>
+    </h4>
+
 }

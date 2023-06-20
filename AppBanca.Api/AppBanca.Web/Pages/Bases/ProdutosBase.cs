@@ -21,8 +21,6 @@ public class ProdutosBase : ComponentBase
     public IEnumerable<SupplierDto>? SuppliersDto { get; set; }
     public IEnumerable<CategoryDto>? CategoriesDto { get; set; }
     public SfGrid<ProductDto>? SfProductsGrid { get; set; }
-    public SfDropDownList<CategoryDto, string> ListFieldSettings { get; set; }
-
 
     protected override async Task OnInitializedAsync()
     {

@@ -81,16 +81,16 @@
       "PackagePath": "staticwebassets\\icon-512.png"
     },
     {
+      "Id": "C:\\Users\\danil\\OneDrive\\Documentos\\Projeto App Banca Jardim Novo\\AppBanca.Api\\AppBanca.Web\\wwwroot\\images\\cruzadinha.jpeg",
+      "PackagePath": "staticwebassets\\images\\cruzadinha.jpeg"
+    },
+    {
       "Id": "C:\\Users\\danil\\OneDrive\\Documentos\\Projeto App Banca Jardim Novo\\AppBanca.Api\\AppBanca.Web\\wwwroot\\index.html",
       "PackagePath": "staticwebassets\\index.html"
     },
     {
       "Id": "C:\\Users\\danil\\OneDrive\\Documentos\\Projeto App Banca Jardim Novo\\AppBanca.Api\\AppBanca.Web\\wwwroot\\manifest.json",
       "PackagePath": "staticwebassets\\manifest.json"
-    },
-    {
-      "Id": "C:\\Users\\danil\\OneDrive\\Documentos\\Projeto App Banca Jardim Novo\\AppBanca.Api\\AppBanca.Web\\wwwroot\\sample-data\\weather.json",
-      "PackagePath": "staticwebassets\\sample-data\\weather.json"
     },
     {
       "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.AppBanca.Web.Microsoft.AspNetCore.StaticWebAssets.props",
